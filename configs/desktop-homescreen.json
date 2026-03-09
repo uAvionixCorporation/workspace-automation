@@ -48,15 +48,15 @@
   },
   "src": [
     {
-      "uri": "https://github.com/toyota-connected/ivi-homescreen.git",
+      "uri": "git@github.com:uAvionixCorporation/ivi-homescreen.git",
       "branch": "v2.0"
     },
     {
-      "uri": "https://github.com/toyota-connected/ivi-homescreen-plugins.git",
+      "uri": "git@github.com:uAvionixCorporation/ivi-homescreen-plugins.git",
       "branch": "v2.0"
     },
     {
-      "uri": "https://github.com/toyota-connected/tcna-packages.git",
+      "uri": "git@github.com:uAvionixCorporation/tcna-packages.git",
       "branch": "v2.0"
     },
     {
