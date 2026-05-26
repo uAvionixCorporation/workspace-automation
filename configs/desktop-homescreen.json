@@ -76,6 +76,10 @@
     {
       "uri": "https://github.com/meta-flutter/flatpak_flutter",
       "branch": "main"
+    },
+    {
+      "uri": "git@github.com:uAvionixCorporation/skyplay_flutter.git",
+      "branch": "master"
     }
   ],
   "runtime": {

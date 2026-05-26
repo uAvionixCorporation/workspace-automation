@@ -25,6 +25,15 @@
         }
     ],
     "runtime": {
+        "pre-requisites": {
+            "x86_64": {
+                "ubuntu": {
+                    "cmds": [
+                        "sudo apt-get install -yq libgeographiclib-dev"
+                    ]
+                }
+            }
+        },
         "post_cmds": [
             {
                 "cwd": "${AVCHART_SRC_DIR}",
