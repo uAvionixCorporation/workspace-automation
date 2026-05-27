@@ -1,9 +1,7 @@
 {
-    "id": "ogre",
+    "id": "synthetic-vision-engine",
     "load": true,
     "supported_archs": [
-        "aarch64",
-        "arm64",
         "x86_64"
     ],
     "supported_host_types": [
@@ -15,15 +13,15 @@
         "CXX": "${LLVM_BINDIR}/clang++",
         "PATH": "${FLUTTER_WORKSPACE}/.config/flutter_workspace/toolchain-common-ninja:${FLUTTER_WORKSPACE}/.config/flutter_workspace/toolchain-common-cmake/bin:$PATH",
         "LD_LIBRARY_PATH": "${FLUTTER_WORKSPACE}/.config/flutter_workspace/toolchain-common-cmake/lib",
-        "OGRE_SRC_DIR": "${FLUTTER_WORKSPACE}/app/ogre",
-        "OGRE_BUILD_DIR": "${FLUTTER_WORKSPACE}/app/ogre/build",
-        "OGRE_STAGING_DIR": "${FLUTTER_WORKSPACE}/app/ogre/staging",
-        "OGRE_CMAKE_ARGS": "-DOGRE_BUILD_DEPENDENCIES:BOOL=OFF -DOGRE_BUILD_SAMPLES:BOOL=FALSE -DOGRE_CONFIG_THREADS:STRING=0 -DOGRE_RESOURCEMANAGER_STRICT:STRING=2 -DOGRE_BUILD_COMPONENT_PYTHON:BOOL=FALSE -DOGRE_BUILD_COMPONENT_JAVA:BOOL=FALSE -DOGRE_BUILD_COMPONENT_CSHARP:BOOL=FALSE -DOGRE_BUILD_COMPONENT_BITES:BOOL=FALSE -DDOGRE_BUILD_PLUGIN_GLSLANG:BOOL=ON -DOGRE_BUILD_COMPONENT_OVERLAY_IMGUI=OFF -DOGRE_USE_WAYLAND=ON -DCMAKE_STAGING_PREFIX=${OGRE_STAGING_DIR}"
+        "SYNTH_VIS_SRC_DIR": "${FLUTTER_WORKSPACE}/app/synthetic-vision-engine",
+        "SYNTH_VIS_BUILD_DIR": "${FLUTTER_WORKSPACE}/app/synthetic-vision-engine/build",
+        "SYNTH_VIS_STAGING_DIR": "${FLUTTER_WORKSPACE}/app/synthetic-vision-engine/staging",
+        "SYNTH_VIS_CMAKE_ARGS": "-DCMAKE_STAGING_PREFIX=${SYNTH_VIS_STAGING_DIR}"
     },
     "src": [
         {
-            "uri": "https://github.com/OGRECave/ogre.git",
-            "version": "v14.5.2"
+            "uri": "git@github.com:uAvionixCorporation/synthetic-vision-engine.git",
+            "version": "master"
         }
     ],
     "runtime": {
@@ -31,30 +29,30 @@
             "x86_64": {
                 "ubuntu": {
                     "cmds": [
-                        "sudo apt-get install -yq libsdl2-dev libsdl2-image-dev libgles2-mesa-dev libvulkan-dev glslang-dev libwayland-dev libwayland-egl1 libegl-dev"
+                        "sudo apt-get install -yq libsdl2-dev libsdl2-image-dev"
                     ]
                 }
             }
         },
         "post_cmds": [
             {
-                "cwd": "${OGRE_SRC_DIR}",
+                "cwd": "${SYNTH_VIS_SRC_DIR}",
                 "cmds": [
-                    "git reset --hard v14.5.2"
+                    "git reset --hard master"
                 ]
             },
             {
-                "cwd": "${OGRE_BUILD_DIR}",
+                "cwd": "${SYNTH_VIS_BUILD_DIR}",
                 "cmds": [
                     "bash -c \"rm -rf CMakeCache.txt CMakeFiles | true\"",
-                    "cmake -GNinja -S ${OGRE_SRC_DIR} -B ${OGRE_BUILD_DIR} ${OGRE_CMAKE_ARGS}",
+                    "cmake -GNinja -S ${SYNTH_VIS_SRC_DIR} -B ${SYNTH_VIS_BUILD_DIR} ${SYNTH_VIS_CMAKE_ARGS}",
                     "cmake --build . --config Release --target install"
                 ]
             }
         ],
         "do_clean": [
             {
-                "cwd": "${OGRE_BUILD_DIR}",
+                "cwd": "${SYNTH_VIS_BUILD_DIR}",
                 "cmds": [
                     "ninja -t clean"
                 ]
