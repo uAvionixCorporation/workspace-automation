@@ -31,7 +31,7 @@
             "x86_64": {
                 "ubuntu": {
                     "cmds": [
-                        "sudo apt-get install -yq libgles2-mesa-dev libvulkan-dev glslang-dev libwayland-dev libwayland-egl1 libegl-dev"
+                        "sudo apt-get install -yq libsdl2-dev libsdl2-image-dev libgles2-mesa-dev libvulkan-dev glslang-dev libwayland-dev libwayland-egl1 libegl-dev"
                     ]
                 }
             }

@@ -1,5 +1,5 @@
 {
-    "id": "aviation-charts-engine",
+    "id": "flight-information-processor",
     "load": true,
     "supported_archs": [
         "x86_64"
@@ -13,46 +13,37 @@
         "CXX": "${LLVM_BINDIR}/clang++",
         "PATH": "${FLUTTER_WORKSPACE}/.config/flutter_workspace/toolchain-common-ninja:${FLUTTER_WORKSPACE}/.config/flutter_workspace/toolchain-common-cmake/bin:$PATH",
         "LD_LIBRARY_PATH": "${FLUTTER_WORKSPACE}/.config/flutter_workspace/toolchain-common-cmake/lib",
-        "AVCHART_SRC_DIR": "${FLUTTER_WORKSPACE}/app/aviation-charts-engine",
-        "AVCHART_BUILD_DIR": "${FLUTTER_WORKSPACE}/app/aviation-charts-engine/build",
-        "AVCHART_STAGING_DIR": "${FLUTTER_WORKSPACE}/app/aviation-charts-engine/staging",
-        "AVCHART_CMAKE_ARGS": "-DCMAKE_STAGING_PREFIX=${AVCHART_STAGING_DIR}"
+        "FIP_SRC_DIR": "${FLUTTER_WORKSPACE}/app/flight-information-processor",
+        "FIP_BUILD_DIR": "${FLUTTER_WORKSPACE}/app/flight-information-processor/build",
+        "FIP_STAGING_DIR": "${FLUTTER_WORKSPACE}/app/flight-information-processor/staging",
+        "FIP_CMAKE_ARGS": "-DCMAKE_STAGING_PREFIX=${FIP_STAGING_DIR}"
     },
     "src": [
         {
-            "uri": "git@github.com:uAvionixCorporation/aviation-charts-engine.git",
+            "uri": "git@github.com:uAvionixCorporation/flight-information-processor.git",
             "version": "master"
         }
     ],
     "runtime": {
-        "pre-requisites": {
-            "x86_64": {
-                "ubuntu": {
-                    "cmds": [
-                        "sudo apt-get install -yq libgeographiclib-dev libsdl2-dev libsdl2-image-dev"
-                    ]
-                }
-            }
-        },
         "post_cmds": [
             {
-                "cwd": "${AVCHART_SRC_DIR}",
+                "cwd": "${FIP_SRC_DIR}",
                 "cmds": [
                     "git reset --hard master"
                 ]
             },
             {
-                "cwd": "${AVCHART_BUILD_DIR}",
+                "cwd": "${FIP_BUILD_DIR}",
                 "cmds": [
                     "bash -c \"rm -rf CMakeCache.txt CMakeFiles | true\"",
-                    "cmake -GNinja -S ${AVCHART_SRC_DIR} -B ${AVCHART_BUILD_DIR} ${AVCHART_CMAKE_ARGS}",
+                    "cmake -GNinja -S ${FIP_SRC_DIR} -B ${FIP_BUILD_DIR} ${FIP_CMAKE_ARGS}",
                     "cmake --build . --config Release --target install"
                 ]
             }
         ],
         "do_clean": [
             {
-                "cwd": "${AVCHART_BUILD_DIR}",
+                "cwd": "${FIP_BUILD_DIR}",
                 "cmds": [
                     "ninja -t clean"
                 ]
