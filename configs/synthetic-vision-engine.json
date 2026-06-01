@@ -2,7 +2,9 @@
     "id": "synthetic-vision-engine",
     "load": true,
     "supported_archs": [
-        "x86_64"
+        "x86_64",
+	"aarch64",
+        "arm64"
     ],
     "supported_host_types": [
         "ubuntu"
@@ -32,7 +34,14 @@
                         "sudo apt-get install -yq libsdl2-dev libsdl2-image-dev"
                     ]
                 }
-            }
+            },
+            "aarch64": {
+                "ubuntu": {
+                    "cmds": [
+                        "sudo apt-get install -yq libsdl2-dev libsdl2-image-dev libgdal-dev glslang-dev spirv-tools"
+                    ]
+                }
+            }            
         },
         "post_cmds": [
             {

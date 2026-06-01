@@ -2,7 +2,9 @@
     "id": "flight-information-processor",
     "load": true,
     "supported_archs": [
-        "x86_64"
+        "x86_64",
+	"aarch64",
+        "arm64"
     ],
     "supported_host_types": [
         "ubuntu"
