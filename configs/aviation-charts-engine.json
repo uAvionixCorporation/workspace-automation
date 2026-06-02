@@ -31,7 +31,7 @@
             "x86_64": {
                 "ubuntu": {
                     "cmds": [
-                        "sudo apt-get install -yq libgeographiclib-dev libsdl2-dev libsdl2-image-dev"
+                        "sudo apt-get install -yq libgeographiclib-dev libsdl2-dev libsdl2-image-dev libuv1-dev"
                     ]
                 }
             },
