@@ -268,3 +268,48 @@ code .
 ### Debugging with VS Code
 
 `flutter_workspace.py` creates a `.vscode/launch.json` file if one is not present. It uses the repo json key `pubspec_path` — if present, an entry is added to `.vscode/launch.json`.
+
+#### skyPlay notes:
+
+- Clone Uavionix github workspace_automation - uavionix/v2.0 branch
+- Run flutter_workspace.py - this will grab all the things from all the different repos (skyplay_flutter, flight-information-processor, etc). Might take 15 minutes or so
+- If it hangs early in the execution, check that there isn't a system wide automatic update that has a hold on the apt-get lock. The python script as-is won't tell you why it is hung 
+-  Get the collection navdata asset files (from Kyle, I guess) that are not in version control
+	- Copy the following to workspace-automation/app/skyplay_flutter 
+	- Basemap*.json
+	- *.mbtiles
+	- *.sqlite
+	- Place_labels.vconfig
+	- Ownship.png
+	- Foreflight_mapbox_style.json
+	- Ifr_low_style.json
+	- Place-labels*.json
+	- Basemap_icons.json
+	- Sectional_style.json
+	- Style_profile_small.json
+- Update each of our repos to whatever the current development branch is (threeincher in this case) otherwise it will checkout master
+	- Aviation-charts-engine
+	- Flight-information-processor
+	- Skyplay_flutter
+- Build each of the C/C++ sources with e.g. cmake --build flight-information-processor/build. This is equivalent to 'make' run inside of the build directory except that it will work for non-Makefile type of projects and it is cross-platform
+- To build and run flutter:
+	- Open up a command terminal
+	- Run source setup_env.sh from workspace_automation (this is needed every time you open a command terminal)
+	- Go to workspace_automation/app/skyplay_flutter
+	- Cmd: flutter run
+	- Note there is no nice Clion nor VSCode top level dev environment for this project now. Just do the above.
+
+- Our content (i.e. uavionix repos) in this code collection are aviation-charts-engine, flight-information-processor, and skyplay_flutter
+
+
+Raspberry Pi dev board
+- Pi 5 from Raspberry Pi (not the clones or Rubik)
+- Use Ubuntu 24.04 LTS Desktop via the Raspberry Imager application. Choose - other general purpose OS to get to the Ubuntu options
+- Pi needs SD media - use the imager to prepare that media
+- First boot of rPi requires keyboard, mouse, monitor to set up root, etc
+- Rpi boot EEPROM update (boards from June 2026 look to be up to date) run rpi-eeprom-update to check
+- First boot the SD Card and run through system config
+- Your name : pi
+- Pi-skyplay-# (unique per board)
+- Pwd: uavionix
+- https://ubuntu.com/hardware/docs/boards/how-to/ubuntu_supported/raspberry-pi/ is useful
