@@ -2034,7 +2034,7 @@ def handle_qemu_obj(qemu: dict, cwd: os.path, platform_id: str, flutter_runtime:
         os.environ['QEMU_EXTRA'] = os.path.expandvars(extra)
 
     if host_machine_arch == 'arm64':
-        os.environ['FORMAL_MACHINE_ARCH'] = 'aarch64'
+        os.environ['FORMAL_MACHINE_ARCH'] = 'arm64'
     elif host_machine_arch == 'x86_64':
         os.environ['FORMAL_MACHINE_ARCH'] = 'x86_64'
 

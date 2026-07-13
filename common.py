@@ -37,7 +37,7 @@ def get_flutter_arch():
         os.environ['HOST_ARCH_GOOGLE'] = 'arm64'
         return 'arm64'
     elif host_arch == 'aarch64':
-        os.environ['HOST_ARCH_GOOGLE'] = 'aarch64'
+        os.environ['HOST_ARCH_GOOGLE'] = 'arm64'
         return 'arm64'
     else:
         print_banner(f'Unknown host arch: {host_arch}')
