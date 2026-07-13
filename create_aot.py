@@ -11,6 +11,7 @@ import glob
 import os
 import signal
 import sys
+import platform
 
 from common import handle_ctrl_c
 from common import print_banner
@@ -199,14 +200,48 @@ def create_platform_aot(app_path: str, flutter_sdk_version: str):
                 return
             build_dir = build_dirs[0].rstrip('/')  # Remove trailing slash
 
+#            if not new_build_scheme:
+#                dart_runtime = f'{flutter_sdk}/bin/cache/dart-sdk/bin/dart'
+#                frontend_snapshot = f'{flutter_sdk}/bin/cache/artifacts/engine/linux-arm64/frontend_server.dart.snapshot'
+#                depfile = f'{build_dir}/kernel_snapshot.d'
+#            else:
+#                dart_runtime = f'{flutter_sdk}/bin/cache/dart-sdk/bin/dartaotruntime'
+#                frontend_snapshot = f'{flutter_sdk}/bin/cache/artifacts/engine/linux-arm64/frontend_server_aot.dart.snapshot'
+#                depfile = f'{build_dir}/kernel_snapshot_program.d'
+
+            machine = platform.machine().lower()
+
+            if machine in ('aarch64', 'arm64'):
+                flutter_host_arch = 'linux-arm64'
+            elif machine in ('x86_64', 'amd64'):
+                flutter_host_arch = 'linux-x64'
+            else:
+                sys.exit(f'Unsupported Flutter host architecture: {machine}')
+
             if not new_build_scheme:
                 dart_runtime = f'{flutter_sdk}/bin/cache/dart-sdk/bin/dart'
-                frontend_snapshot = f'{flutter_sdk}/bin/cache/artifacts/engine/linux-x64/frontend_server.dart.snapshot'
+                frontend_snapshot = (
+                    f'{flutter_sdk}/bin/cache/artifacts/engine/'
+                    f'{flutter_host_arch}/frontend_server.dart.snapshot'
+                )
                 depfile = f'{build_dir}/kernel_snapshot.d'
             else:
-                dart_runtime = f'{flutter_sdk}/bin/cache/dart-sdk/bin/dartaotruntime'
-                frontend_snapshot = f'{flutter_sdk}/bin/cache/artifacts/engine/linux-x64/frontend_server_aot.dart.snapshot'
+                dart_runtime = (
+                    f'{flutter_sdk}/bin/cache/dart-sdk/bin/dartaotruntime'
+                )
+
+                frontend_snapshot = (
+                    f'{flutter_sdk}/bin/cache/artifacts/engine/'
+                    f'{flutter_host_arch}/frontend_server_aot.dart.snapshot'
+                )
+
                 depfile = f'{build_dir}/kernel_snapshot_program.d'
+
+            if not os.path.isfile(frontend_snapshot):
+                sys.exit(
+                    f'Missing frontend-server snapshot for host {machine}: '
+                    f'{frontend_snapshot}'
+                )
 
             cmd = f'{dart_runtime} \
                 --disable-dart-dev \
