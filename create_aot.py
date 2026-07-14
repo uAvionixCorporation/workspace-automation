@@ -221,8 +221,8 @@ def create_platform_aot(app_path: str, flutter_sdk_version: str):
             if not new_build_scheme:
                 dart_runtime = f'{flutter_sdk}/bin/cache/dart-sdk/bin/dart'
                 frontend_snapshot = (
-                    f'{flutter_sdk}/bin/cache/artifacts/engine/'
-                    f'{flutter_host_arch}/frontend_server.dart.snapshot'
+                #    f'{flutter_sdk}/bin/cache/artifacts/engine/'
+                    f'{flutter_sdk}/bin/cache/dart-sdk/bin/snapshots/frontend_server.dart.snapshot'
                 )
                 depfile = f'{build_dir}/kernel_snapshot.d'
             else:
@@ -231,8 +231,8 @@ def create_platform_aot(app_path: str, flutter_sdk_version: str):
                 )
 
                 frontend_snapshot = (
-                    f'{flutter_sdk}/bin/cache/artifacts/engine/'
-                    f'{flutter_host_arch}/frontend_server_aot.dart.snapshot'
+                #    f'{flutter_sdk}/bin/cache/artifacts/engine/'
+                    f'{flutter_sdk}/bin/cache/dart-sdk/bin/snapshots/frontend_server_aot.dart.snapshot'
                 )
 
                 depfile = f'{build_dir}/kernel_snapshot_program.d'
